@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="estilo_3times.css">
+		<style>
+		</style>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	</head>
+	<body onkeypress="return EnviaFormulario(event);">
+		
+        <!--div id="div_logo">
+			<img id="logo" src="logo_pre_oficial_2.png" />
+        </div-->	
+	
+		<video id="video_prova" src="VID-20150522-WA0000.mp4" width="1350" height="650" style='display: none;'>			
+  			Your browser does not support the video tag.
+		</video>
+		
+		<br><br><br>
+
+		<canvas id="myCanvas" width="1000" height="600" style='display: none;'>
+		    <script>
+				
+				window.onload=function(){
+
+					var canvas = document.getElementById('myCanvas');  
+					var ctx = canvas.getContext('2d');  
+					var mouse_x = 0;
+					var mouse_y = 0;
+					
+					var mouse={x:500,y:400} //make an object to hold mouse position
+
+					canvas.onmousemove = function(e){mouse={x:e.clientX,y:e.clientY};} //update the mouse when the canvas is moved over
+					
+					var img = new Image();
+
+					img.src = "photo.jpg";
+					img.height = "348px";
+
+					setInterval( start_drawing ,100);// set the animation into motion
+
+					ctx.beginPath();
+					ctx.fillStyle = "rgb(255,255,255)";
+					ctx.fillRect(0,0,canvas.width,canvas.height);//fill the background. color is default black
+					ctx.closePath();
+
+					function start_drawing(){
+						//ctx.save();
+						ctx.beginPath();
+						ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
+						//ctx.arc(500, 300, 300, 0, Math.PI * 2, false);//draw the circle						
+						ctx.stroke();
+						//ctx.clip();//call the clip method so the next render is clipped in last path
+						mouse_x = (mouse.x-210);
+						mouse_y = (mouse.y-90);
+						ctx.drawImage(img, 900 - mouse_x, 500 - mouse_y);  
+						ctx.closePath();
+						//ctx.restore();
+					}
+
+				}
+				
+			</script>
+		</canvas>		
+				
+		<div id='questao'></div>
+        <div id="div1" width=100% align=center>
+			<button id="cron" type="button" style = "background-color: #FF5555;" onclick="return cronometro(event)">Incrementar</button>
+			<button id="temp" type="button" style = "background-color: #55FFFF;" onclick="return temporizador(event)">Decrementar</button><br>
+			<img src="photo.jpg" alt="Umadjo">
+			<input id="cronometro" value = "00:00"  size="3" type="text"/>
+			<img src="photo.jpg" alt="Umadjo"><br>
+			<button id="botao1" type="button" onclick = "tempo1()">Iniciar</button>
+		</div>
+		<div id="div2" width=100% align=center>       
+			<!--textarea id="nome_time1" rows="1" cols="14" onKeyDown="valida_longitude(event)">TIME1</textarea-->
+			<input id="nome_time1" value= "TIME1"  size="3" MAXLENGTH=15 type="text"/>
+			<input id="nome_time2" value= "TIME2"  size="3" MAXLENGTH=15 type="text"/>
+			<input id="nome_time3" value= "TIME3"  size="3" MAXLENGTH=15 type="text"/>
+			<!--textarea id="nome_time2" rows="1" cols="14" onKeyDown="valida_longitude2(event)">TIME2</textarea-->
+		</div>
+        <div id="div3" width=100% align=center>
+			<div id ="div_time1">
+				<input id="time1" value= "0"  size="3" type="text"  onclick="return EnviaFormulario1(event);"/>
+            </div>
+			<div id ="div_time2">
+				<input id="time2" value= "0" size="3" type="text"  onclick="return EnviaFormulario2(event);"/>
+			</div>
+			<div id ="div_time3">
+				<input id="time3" value= "0" size="3" type="text"  onclick="return EnviaFormulario3(event);"/>
+			</div>
+		</div>
+		<br><br><br><br>
+		<br><br><br><br>
+		<br><br><br><br>
+		<br><br><br><br>
+		<br><br><br><br>
+		<div id="texto_baixo" width=100% align=center>
+			<input id="inp_texto_baixo" value= "1º BLOCO - 1º QUESTÃO" type="text"/>
+		</div>
+			
+		<!-- controls -->	
+		<audio id = "som" src="AUD-20141031-WA0003.mp3" controls loop style='display: none;'>
+			Your browser does not support the audio element.
+		</audio>
+	</body>
+</html>
+<script type = "text/javascript" src = "questoes.js"> 
+</script>
+<SCRIPT language="JavaScript">
+			var segundo = 0+"0";
+			var minuto = 0+"0";
+			var tempo = "00:00";
+			var i = 0;
+			var inicio = 0;
+			var questao = 1;
+			var bloco = 1;
+			var bot_pres = 1;
+			var pontos_t1 = 0;
+			var pontos_t2 = 0;
+			var tempo_tipo = 0;
+						
+			document.getElementById("time1").style.height = screen.height-520 + "px";
+			document.getElementById("time2").style.height = screen.height-520 + "px";
+			document.getElementById("time3").style.height = screen.height-520 + "px";
+			
+			document.getElementById("logo").style.height = screen.height-420 + "px";			
+			document.getElementById("div_logo").style.margin = "20% 33%";
+			document.getElementById("div_logo").style.position = "fixed";
+			
+			document.getElementById("video_prova").height = screen.height;
+			document.getElementById("video_prova").width  = screen.width;
+			
+			function cronometro(){
+			   document.getElementById("cron").style.background = "#55FFFF";
+			   document.getElementById("temp").style.background = "#FF5555";
+			   document.getElementById("cronometro").value = "00:00";
+			   bot_pres = 2;
+			   
+			}
+			
+			function temporizador(){
+			   document.getElementById("cron").style.background = "#FF5555";
+			   document.getElementById("temp").style.background = "#55FFFF";
+			   document.getElementById("cronometro").value = "00:00";
+			   bot_pres = 1;
+			   
+			}
+			
+			/******* CRONOMETRO *********/
+			function tempo1(){
+				if(bot_pres == 1){
+					if(document.getElementById("botao1").innerHTML == 'Parar'){
+						parar();
+					}
+					else{
+						document.getElementById("botao1").innerHTML = 'Parar';
+						inicio = setInterval('tempo_temp()',988);
+						document.getElementById("cronometro").style.color = '#000000';
+						return false;
+					}
+				}
+				else{
+					if(document.getElementById("botao1").innerHTML == 'Parar'){
+						parar();
+					}
+					else{
+						document.getElementById("botao1").innerHTML = 'Parar';
+						inicio = setInterval('tempo_prog()',988);
+						document.getElementById("cronometro").style.color = '#000000';
+						return false;
+					}
+				}
+			}
+			
+			function parar(){
+				clearInterval(inicio);
+				document.getElementById("cronometro").style.color = 'black';
+
+				document.getElementById("botao1").innerHTML = 'Iniciar';		
+			}
+			
+			function limpar(){
+				document.getElementById("cronometro").value = "00:00";
+			}
+			
+			function tempo_temp(){
+			
+				document.getElementById("cronometro").style.color = '#000000';
+				tempo = document.getElementById("cronometro").value.split(":");
+				minuto = parseInt(tempo[0]);
+				segundo = parseInt(tempo[1]);
+			    if(segundo == 00 && minuto > 00){
+				   minuto--;
+				   segundo = 60;
+			    }
+			    if (segundo > 00){
+				   segundo--;
+				   if(minuto < 10){minuto = "0"+minuto}
+				   if(segundo < 10){segundo = "0"+segundo}
+			    }
+				document.getElementById("cronometro").value = minuto +":"+ segundo;
+				
+				if(segundo == "00" && minuto == "00")
+				{
+					parar();	
+				}
+				
+			}
+			
+			function tempo_prog(){
+				
+				document.getElementById("cronometro").style.color = '#000000';
+				tempo = document.getElementById("cronometro").value.split(":");
+				minuto = parseInt(tempo[0]);
+				segundo = parseInt(tempo[1]);
+				if(document.getElementById("botao1").innerHTML == "Parar"){
+					if (segundo < 60){
+					   segundo++;
+					   if(minuto < 10){minuto = "0"+minuto}
+					   if(segundo < 10){segundo = "0"+segundo}
+					}
+					if(segundo == 60){
+					   minuto++;
+					   segundo = 00;
+					   if(minuto < 10){minuto = "0"+minuto}
+					   if(segundo < 10){segundo = "0"+segundo}
+					}
+					document.getElementById("cronometro").value = minuto +":"+ segundo;
+				}
+				
+			}
+			
+			/******* CRONOMETRO *********/
+			
+			/******* PONTO TIMES - MOUSE *********/
+			function EnviaFormulario1(evt) {
+					document.getElementById("time1").value = parseInt(document.getElementById("time1").value) + 10;
+			}
+
+			function EnviaFormulario2(evt) {
+					document.getElementById("time2").value = parseInt(document.getElementById("time2").value) + 10;
+			}
+			/******* PONTO TIMES - MOUSE *********/
+
+			
+			function EnviaFormulario(evt) {
+				var key_code = evt.keyCode  ? evt.keyCode :
+                    evt.charCode ? evt.charCode :
+                    evt.which    ? evt.which    : void 0;
+					   
+						
+				var script = document.createElement('script');
+				script.src = "variaveis.js"; // URL do seu script aqui
+				document.body.appendChild(script);
+				
+				/******* TEMPO - TECLADO *********/
+				if (key_code == 116)	/** t **/
+				{
+					if(tempo_tipo == 0) tempo_tipo = 1;
+					else tempo_tipo = 0;
+				}
+				
+				if(tempo_tipo == 1)
+				{				
+					if (key_code == 43)	/** + **/
+					{
+						if(document.getElementById("cronometro").value.split(":")[1] == "30")
+						{
+							document.getElementById("cronometro").value = (parseInt(document.getElementById("cronometro").value.split(":")[0]) + 1) + ":00";
+						}
+						else
+						{
+							document.getElementById("cronometro").value = document.getElementById("cronometro").value.split(":")[0] + ":30";
+						}
+					}
+					if (key_code == 45)	/** - **/
+					{
+						document.getElementById("cronometro").value = "00:00";
+						
+						/*if(document.getElementById("cronometro").value.split(":")[1] == "30")
+						{
+							document.getElementById("cronometro").value = document.getElementById("cronometro").value.split(":")[0] + ":00";
+						}
+						else
+						{
+							document.getElementById("cronometro").value = (parseInt(document.getElementById("cronometro").value.split(":")[0]) - 1) + ":30";
+						}*/
+					}
+					if (key_code == 105)	/** i **/
+					{
+						tempo1();
+					}
+					if (key_code == 101)	/** e **/
+					{
+						temporizador();
+					}
+					if (key_code == 99)		/** c **/
+					{
+						cronometro();
+					}
+				}
+			
+				/******* PONTO TIMES - TECLADO *********/	
+				/*console.log(document.getElementById("pergunta" + questao).style.display);*/
+				if (document.getElementById(bloco + "pergunta" + questao).style.display == "none" && document.getElementById("texto").style.display == "none" && tempo_tipo == 0)
+				{
+					if (key_code == 113)	/** q **/
+					{
+						document.getElementById("time1").value = parseInt(document.getElementById("time1").value) + 10;
+						document.getElementById("time1").focus();
+						return false;
+					}
+					if (key_code == 119)	/** w **/
+					{		
+						document.getElementById("time1").value = parseInt(document.getElementById("time1").value) - 10;
+						document.getElementById("time1").focus();
+						return false;
+						
+					}
+					if (key_code == 97)	/** a **/
+					{		
+						document.getElementById("time2").value = parseInt(document.getElementById("time2").value) + 10;
+						document.getElementById("time2").focus();
+						return false;
+					}
+					if (key_code == 115)	/** s **/
+					{		
+						document.getElementById("time2").value = parseInt(document.getElementById("time2").value) - 10;
+						document.getElementById("time2").focus();
+						return false;
+					}
+					if (key_code == 122)	/** z **/
+					{		
+						document.getElementById("time3").value = parseInt(document.getElementById("time3").value) + 10;
+						document.getElementById("time3").focus();
+						return false;
+					}
+					if (key_code == 120)	/** x **/
+					{		
+						document.getElementById("time3").value = parseInt(document.getElementById("time3").value) - 10;
+						document.getElementById("time3").focus();
+						return false;
+					}
+					
+					/******* PONTO TIMES - TECLADO *********/
+				
+					/******* QUESTÔES - TECLADO ************/
+				
+					if (key_code == 43) /** + **/
+					{		
+						if(questao < 20)
+						questao++;
+					}
+					
+					if (key_code == 45) /** - **/
+					{	
+						if(questao > 1)
+							questao--;
+					}
+					
+					if (key_code == 42) /** * **/
+					{		
+						bloco++;
+						questao = 1;
+					}
+
+					if (key_code == 118) /** v **/
+					{		
+						if (document.getElementById("video_prova").style.display == "none")
+						{
+							document.getElementById("video_prova").src = video[questao];
+							document.getElementById("video_prova").style.display = "block"; 
+							document.getElementById("video_prova").play(); 
+						}
+						else
+						{
+							document.getElementById("video_prova").pause();
+							document.getElementById("video_prova").style.display = "none";
+						}
+					} 
+					
+					if (key_code == 93) /** ] **/
+					{
+						if (document.getElementById("som").paused)
+						{
+							document.getElementById("som").style.display = "block"; 
+							document.getElementById("som").src = som;
+							document.getElementById("som").play();
+						}
+						else
+						{
+							document.getElementById("som").style.display = "none"; 
+							document.getElementById("som").pause();
+						}
+					}
+					
+					if (key_code == 91) /** [ **/
+					{
+						if (document.getElementById("postagem").style.display == "none")
+						{
+							document.getElementById("img_postagem").src = imagem;
+							document.getElementById("postagem").style.display = "block";
+						}
+						else
+						{
+							document.getElementById("postagem").style.display = "none";
+						}
+					}
+					
+					if (key_code == 100) /** d **/
+					{
+						if (document.getElementById("myCanvas").style.display == "none")
+						{
+							document.getElementById("myCanvas").style.display = "block";
+						}
+						else
+						{
+							document.getElementById("myCanvas").style.display = "none";
+						}
+					}
+					
+					if (questao > 0 && (key_code == 42 || key_code == 43 || key_code == 45)){
+						if (bloco == 4) bloco = 1;
+						if (bloco == 1) document.getElementById("inp_texto_baixo").value = bloco + "º BLOCO - " + questao + "º QUESTÃO";
+						if (bloco == 2) document.getElementById("inp_texto_baixo").value = bloco + "º BLOCO - " + questao + "º HINO";
+						if (bloco == 3) document.getElementById("inp_texto_baixo").value = bloco + "º BLOCO  - " + questao + "º VÍDEO";;
+					}
+
+					/******* QUESTÔES - TECLADO ************/
+				}
+				
+				/******* Alternativa - TECLADO **********/
+				
+				if (document.getElementById(bloco + "pergunta" + questao).style.display == "block")
+				{
+					if (key_code == 97)	/** a **/
+					{
+						document.getElementById('a' + questao).style.color = '#00AA00';
+						document.getElementById('b' + questao).style.color = 'black';
+						document.getElementById('c' + questao).style.color = 'black';
+						document.getElementById('d' + questao).style.color = 'black';
+					}
+					if (key_code == 98)	/** b **/
+					{		
+						document.getElementById('a' + questao).style.color = 'black';
+						document.getElementById('b' + questao).style.color = '#00AA00';
+						document.getElementById('c' + questao).style.color = 'black';
+						document.getElementById('d' + questao).style.color = 'black';
+					}
+					if (key_code == 99)	/** c **/
+					{		
+						document.getElementById('a' + questao).style.color = 'black';
+						document.getElementById('b' + questao).style.color = 'black';
+						document.getElementById('c' + questao).style.color = '#00AA00';
+						document.getElementById('d' + questao).style.color = 'black';
+					}
+					if (key_code == 100) /** d **/
+					{		
+						document.getElementById('a' + questao).style.color = 'black';
+						document.getElementById('b' + questao).style.color = 'black';
+						document.getElementById('c' + questao).style.color = 'black';
+						document.getElementById('d' + questao).style.color = '#00AA00';
+					}
+				}
+				/******* Alternativa - TECLADO **********/
+				
+				
+				if (key_code == 59 && document.getElementById(bloco + "pergunta" + questao).style.display == "none")
+				{
+					document.getElementById(bloco + "pergunta" + questao).style.display = "block"; 
+				}
+				else
+					if (key_code == 59 && document.getElementById(bloco + "pergunta" + questao).style.display == "block")
+					{
+						document.getElementById(bloco + "pergunta" + questao).style.display = "none"; 
+						/*document.getElementById('a' + questao).style.color = 'white';
+						document.getElementById('b' + questao).style.color = 'white';
+						document.getElementById('c' + questao).style.color = 'white';
+						document.getElementById('d' + questao).style.color = 'white';*/
+					}
+				
+				if (key_code == 47 && document.getElementById("texto").style.display == "none")
+				{
+					document.getElementById("texto").style.display = "block"; 
+				}
+				else
+					if (key_code == 47 && document.getElementById("texto").style.display == "block")
+					{
+						document.getElementById("texto").style.display = "none"; 
+					}
+			
+			}
+			
+			document.getElementById("myCanvas").style.margin = "-2% 12%";
+						
+</SCRIPT> 

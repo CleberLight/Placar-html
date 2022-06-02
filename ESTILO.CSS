@@ -1,0 +1,166 @@
+html, body {
+	border: 0;
+	margin: 0;
+	height: 100%;	
+}
+
+#nome_time1 {
+	border: 0; 
+	width: 45%; 
+	font-size: 70px; 
+	color: white;
+	font-weight:bold; 
+	text-align: center;
+	background: white;
+	text-shadow: #000 3px 3px;
+}
+#nome_time2 {
+	border: 0; 
+	width: 45%; 
+	font-size: 70px; 
+	color: white;
+	font-weight:bold; 
+	text-align: center;
+	background: white;
+	text-shadow: #000 3px 3px;
+}
+
+#nome_time1 {
+	color: rgb(244, 52, 52);
+}
+
+#nome_time2 {
+	color: rgb(73, 65, 252);
+}
+
+#time1, #time2 {
+	border: 0; 
+	width: 70%; 
+	font-size: 160px;
+	font-weight:bold; 
+	color: black;
+	text-align: center;
+	background: white;
+	border-style: outset;
+	border-width: 8px;
+	transition: font-size 1s;
+	text-shadow: #999 3px 3px;
+}
+#y{
+	display: inline;
+	border: 0; 
+	width: 50px;  
+	color: white;
+	height: 50px;
+	background: white;
+}
+#x {
+	float: left;
+	height: auto;
+	display: inline;
+	border: 0; 
+	width: 10%; 
+	font-size: 140px;
+	font-weight:bold; 
+	color: white;
+	height: 200px;
+	text-align: center;
+	text-shadow:#000 1px -1px, #000 -1px 1px, #000 1px 1px, #000 -1px -1px;
+	background: white;
+}
+#cronometro {
+	border: 0; 
+	width: 50%; 
+	height: 100PX;
+	font-size: 100px; 
+	color: black;
+	font-weight:bold; 
+	text-align: center;
+	background-repeat: no-repeat;
+	background-color: white;
+	transition: font-size 1s;
+	text-shadow: #999 3px 3px;
+}
+#cronometro:focus{
+	font-size: 102px;
+}
+#questao{
+	border: 0; 
+	width: 100%; 
+	font-size: 45px; 
+	color: white;
+	font-weight:bold; 
+	text-align: center;
+	background: black;
+	position: fixed;
+}
+#video_prova{
+	width: 100%; 
+	color: white;
+	position: fixed;
+}
+#area_texto{
+	text-align: center;
+	font-size: 70px; 
+	font-weight:bold;
+}
+#div_time1{ 
+	float: left;
+	width: 44%;
+	height: auto;
+	display: inline;
+}
+#time1:focus{
+	font-size: 180px;
+}
+#time2:focus{
+	font-size: 180px;
+}
+#div_time2{ 
+	float: left;
+	width: 44%;
+	height: auto;
+	display: inline;
+}
+#botao1, #cron, #temp{
+	font-size:22px;
+}
+#myCanvas{
+	border: 0;
+	margin: 0;
+	position: fixed;
+}
+#inp_texto_baixo{
+	font-size: 35px; 
+	font-weight:bold;
+	text-align: center;
+	box-shadow: 0 0 0 0;
+	border: 0 none;
+	outline: 0;
+}
+
+/*#logo:active{
+	width: 800px;
+	height: 400px;
+}*/
+/*#logo{
+	transition: width 2s, height 4s;
+}
+.carro {
+	-webkit-animation-name: example; 
+	-webkit-animation-duration: 4s; 
+	animation-name: example;
+	animation-duration: 2s;
+}
+
+@-webkit-keyframes example {
+	0%   {font-size: 180px;}
+	50%  {font-size: 220px;}
+	100% {font-size: 180px;}
+}
+
+@keyframes example {
+	0%   {font-size: 180px;}
+	50%  {font-size: 220px;}
+	100% {font-size: 180px;}
+}*/
